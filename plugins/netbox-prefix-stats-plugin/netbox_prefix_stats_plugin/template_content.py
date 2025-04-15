@@ -5,7 +5,7 @@ from netbox.plugins import PluginTemplateExtension
 class PrefixExtraInfo(PluginTemplateExtension):
     model = 'ipam.prefix'
 
-    def right_page(self):
+    def full_width_page(self):
         from ipam.models import IPAddress
 
         prefix = self.context['object']
@@ -61,7 +61,7 @@ class PrefixExtraInfo(PluginTemplateExtension):
 class PrefixRangeInfo(PluginTemplateExtension):
     model = 'ipam.prefix'
 
-    def right_page(self):
+    def full_width_page(self):
         from ipam.models import IPAddress, IPRange
 
         prefix = self.context['object']
@@ -69,29 +69,24 @@ class PrefixRangeInfo(PluginTemplateExtension):
         all_ranges = IPRange.objects.all()
 
         def is_range_within_prefix(r, ip_net, prefix_vrf):
-            # VRF-tarkistus, jos määritelty
             if r.vrf and prefix_vrf and r.vrf != prefix_vrf:
                 return False
             return r.start_address in ip_net and r.end_address in ip_net
 
         child_ranges = [r for r in all_ranges if is_range_within_prefix(r, ip_net, prefix.vrf)]
-        range_data = []
 
-        for r in child_ranges:
+        left, center, right = [], [], []
+
+        for index, r in enumerate(child_ranges):
             ip_range = NetaddrIPRange(r.start_address, r.end_address)
             usable_ips = list(ip_range)
             total = len(usable_ips)
 
             ip_qs = IPAddress.objects.filter(address__gte=r.start_address, address__lte=r.end_address)
-            ip_qs = [
-                ip for ip in ip_qs
-                if ip.address.prefixlen == (32 if ip.address.version == 4 else 128)
-            ]
+            ip_qs = [ip for ip in ip_qs if ip.address.prefixlen == (32 if ip.address.version == 4 else 128)]
 
             ip_map = {str(ip.address.ip): ip for ip in ip_qs}
-
             assigned_ips = [ip for ip in ip_qs if ip.assigned_object is not None]
-            assigned_count = len(assigned_ips)
 
             free_count = 0
             first_unassigned = None
@@ -103,21 +98,31 @@ class PrefixRangeInfo(PluginTemplateExtension):
                     if not first_unassigned:
                         first_unassigned = ip_str
 
-            utilization = (assigned_count / total) * 100 if total > 0 else 0
+            utilization = (len(assigned_ips) / total) * 100 if total > 0 else 0
 
-            range_data.append({
+            data = {
                 'start': str(r.start_address),
                 'end': str(r.end_address),
                 'description': r.description or "—",
-                'assigned': assigned_count,
+                'assigned': len(assigned_ips),
                 'total': total,
                 'free': free_count,
                 'first': first_unassigned or "—",
                 'utilization': round(utilization, 1),
-            })
+            }
 
-        return self.render('netbox_prefix_stats_plugin/prefix_ranges.html', {
-            'ranges': range_data
+            # Jaa vuorotellen kolmeen sarakkeeseen
+            if index % 3 == 0:
+                left.append(data)
+            elif index % 3 == 1:
+                center.append(data)
+            else:
+                right.append(data)
+
+        return self.render('netbox_prefix_stats_plugin/prefix_ranges_grid.html', {
+            'left': left,
+            'center': center,
+            'right': right,
         })
 
 
