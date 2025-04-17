@@ -1,0 +1,33 @@
+<div class="card mb-3">
+  <div class="card-header"><strong>{{ r.start }} – {{ r.end }}</strong></div>
+  <div class="card-body p-3">
+    <div class="mb-0 d-flex justify-content-between">
+  <span style="flex: 0 0 45%;">Description</span>
+  <span style="flex: 0 0 45%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: end;">
+    {{ r.description }}
+  </span>
+  </div>
+    <div class="mb-2 d-flex justify-content-between">
+      <span>Utilization</span>
+      <span>{{ r.utilization }}%</span>
+    </div>
+    <div class="progress mb-3" style="height: 6px;">
+      <div class="progress-bar bg-info" role="progressbar"
+           style="width: {{ r.utilization }}%;"
+           aria-valuenow="{{ r.utilization }}" aria-valuemin="0" aria-valuemax="100">
+      </div>
+    </div>
+    <div class="mb-2 d-flex justify-content-between">
+      <span>First Free IP</span>
+      <span>{{ r.first }}</span>
+    </div>
+    <div class="mb-2 d-flex justify-content-between">
+      <span>Assigned IPs</span>
+      <span>{{ r.assigned }} / {{ r.total }}</span>
+    </div>
+    <div class="mb-2 d-flex justify-content-between">
+      <span>Free IPs</span>
+      <span>{{ r.free }}</span>
+    </div>
+  </div>
+</div>
