@@ -12,7 +12,7 @@ __plugin_version__ = "0.1.0"
 # Short description of what the plugin does
 __plugin_description__ = "Track softwares used in servers, computers, vms etc."
 
-# Plugin author"s name or organization, e.g. "Your Name" or "Company Inc."
+# Plugin author's name or organization, e.g. "Your Name" or "Company Inc."
 __plugin_author__ = "DevDorm.cc"
 
 # Contact email address for the plugin author
@@ -77,7 +77,7 @@ __plugin_license__ = "MIT"
 __plugin_certified__ = True
 
 
-from netbox.plugins import PluginMenuGroup, PluginMenuItem, PluginConfig, PluginMenu
+from netbox.plugins import PluginConfig, PluginMenuItem, PluginMenu
 
 menu_items = (
     PluginMenuItem(
@@ -90,12 +90,9 @@ menu_items = (
 menu = PluginMenu(
     label="Softwares",
     groups=(
-        PluginMenuGroup(
-            label="Software Management",
-            items=menu_items,
-        ),
+        ("Software Management", menu_items)
     ),
-    icon_class="mdi mdi-application",
+     icon_class="mdi mdi-application",
 )
 class SoftwaresConfig(PluginConfig):
     """Plugin configuration for NetBox Softwares Plugin."""
