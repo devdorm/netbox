@@ -2,7 +2,7 @@ from netbox.plugins import PluginMenuItem
 
 menu_items = (
     PluginMenuItem(
-        link='https://example.com',  # External or internal link
+        link='',  # External or internal link
         link_text='My Link',         # Label in the menu
         buttons=[],                  # No buttons needed
         permissions=[],              # Leave blank for public access
