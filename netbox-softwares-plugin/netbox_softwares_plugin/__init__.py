@@ -116,4 +116,4 @@ class SoftwaresConfig(PluginConfig):
     #min_version = __plugin_min_version__
     #max_version = __plugin_max_version__
 
-config = SoftwaresConfig
+default_app_config = 'netbox_softwares_plugin.SoftwaresConfig'
