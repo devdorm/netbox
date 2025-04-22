@@ -25,6 +25,6 @@ item2 = PluginMenuItem(
 menu = PluginMenu(
     label='Softwares',
     groups=(
-        ('My Link',(item1, item2))
+        ('My Link',(item1, item2)),
     ),
 )
