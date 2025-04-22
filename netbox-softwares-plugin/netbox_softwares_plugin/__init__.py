@@ -77,9 +77,7 @@ __plugin_license__ = "MIT"
 __plugin_certified__ = True
 
 
-from extras.plugins import PluginMenuItem, PluginMenu, PluginMenuGroup
-from netbox.plugins import  PluginConfig
-
+from netbox.plugins import PluginMenuGroup, PluginMenuItem, PluginConfig, PluginMenu
 
 menu_items = (
     PluginMenuItem(
