@@ -1,4 +1,4 @@
-from extras.plugins import PluginMenuButton, PluginMenuItem
+from extras.plugins import PluginMenuButton, PluginMenuItem, PluginMenu
 from utilities.choices import ButtonColorChoices
 
 plugin_buttons = [
@@ -9,16 +9,6 @@ plugin_buttons = [
     )
 ]
 
-# Plugin submenu
-
-menu = PluginMenu(
-    label="Softwares",
-    groups=(
-        ('Foo', (item1)),
-    ),
-    icon_class='"mdi mdi-apps-box'
-)
-
 # Plugin submenu items
 
 item1 = (
@@ -27,4 +17,14 @@ item1 = (
         link_text="Softwares",
         buttons=plugin_buttons,
     ),
+)
+
+# Plugin submenu
+
+menu = PluginMenu(
+    label="Softwares",
+    groups=(
+        ('Foo', (item1)),
+    ),
+    icon_class='"mdi mdi-apps-box'
 )
