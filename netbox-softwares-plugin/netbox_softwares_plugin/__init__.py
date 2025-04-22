@@ -77,24 +77,28 @@ __plugin_license__ = "MIT"
 __plugin_certified__ = True
 
 
-from extras.plugins import PluginMenuItem, PluginMenu
+from extras.plugins import PluginMenuItem, PluginMenu, PluginMenuGroup
 from netbox.plugins import  PluginConfig
 
 
 menu_items = (
     PluginMenuItem(
-        link='plugins:netbox_softwares_plugin:software_list',
-        link_text='Softwares',
-        permissions=['netbox_softwares_plugin.view_software'],
+        link="plugins:netbox_softwares_plugin:software_list",
+        link_text="Softwares",
+        permissions=["netbox_softwares_plugin.view_software"],
     ),
 )
 
 menu = PluginMenu(
-    label='Softwares',
-    items=menu_items,
-    icon_class='mdi mdi-application',
+    label="Softwares",
+    groups=(
+        PluginMenuGroup(
+            label="Software Management",
+            items=menu_items,
+        ),
+    ),
+    icon_class="mdi mdi-application",
 )
-
 class SoftwaresConfig(PluginConfig):
     """Plugin configuration for NetBox Softwares Plugin."""
     name = __plugin_name__
