@@ -1,8 +1,10 @@
 from django.db import models
+from django.urls import reverse
+from netbox.models import NetBoxModel
 from dcim.models import Device
 
 
-class InstalledSoftware(models.Model):
+class Softwares(NetBoxModel):
     SOURCE_CHOICES = [
         ("agent", "Agent"),
         ("manual", "Manual"),
@@ -48,3 +50,6 @@ class InstalledSoftware(models.Model):
 
     def __str__(self):
         return f"{self.name} on {self.device.name} ({self.version})"
+
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_softwares_plugin:softwares", args=[self.pk])

@@ -1,10 +1,10 @@
 from netbox.forms import NetBoxModelForm
-from .models import InstalledSoftware
+from .models import Softwares
 
 
-class InstalledSoftwareForm(NetBoxModelForm):
+class Softwares(NetBoxModelForm):
     class Meta:
-        model = InstalledSoftware
+        model = Softwares
         fields = (
             "device",
             "name",
