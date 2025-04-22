@@ -1,12 +1,22 @@
-from django import forms
-from ipam.models import Prefix
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
-from utilities.forms.fields import CommentField, DynamicModelChoiceField
-
-from .models import Softwares
+from netbox.forms import NetBoxModelForm
+from .models import InstalledSoftware
 
 
-class SoftwaresForm(NetBoxModelForm):
+class InstalledSoftwareForm(NetBoxModelForm):
     class Meta:
-        model = Softwares
-        fields = ("name", "tags")
+        model = InstalledSoftware
+        fields = (
+            "device",
+            "name",
+            "version",
+            "source",
+            "managed",
+            "description",
+            "status",
+            "install_method",
+            "category",
+            "install_date",
+            "ip_address",
+            "port",
+            "notes",
+        )
