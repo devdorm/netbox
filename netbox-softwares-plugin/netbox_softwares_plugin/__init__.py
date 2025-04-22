@@ -108,7 +108,7 @@ class SoftwaresConfig(PluginConfig):
     #search_extensions = __plugin_search_extensions__
     #data_backends = __plugin_data_backends__
     #template_extensions = __plugin_template_extensions__
-    #menu_items = __plugin_menu_items__
+    menu_items = menu_items
     #graphql_schema = __plugin_graphql_schema__
     #user_preferences = __plugin_user_preferences__
 
