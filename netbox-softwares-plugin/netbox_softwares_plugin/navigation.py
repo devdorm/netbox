@@ -27,5 +27,5 @@ menu = PluginMenu(
     groups=(
         ('My Link',(item1, item2)),
     ),
-    icon_class='mdi mdi-apps-box'
+    icon_class='mdi mdi-developer-board'
 )
